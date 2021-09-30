@@ -2,8 +2,8 @@ name: macOS with Qt
 
 on:
   push:
-    paths:
-      - 'Library/TeamTalkLib/TeamTalkDefs.h'
+    branches-ignore:
+      - debug_workflow
       - '.github/workflows/macos-qt.yml'
 
 jobs:

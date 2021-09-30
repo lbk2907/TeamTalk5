@@ -2,8 +2,8 @@ name: Windows with Qt
 
 on:
   push:
-    paths:
-      - 'Library/TeamTalkLib/TeamTalkDefs.h'
+    branches-ignore:
+      - debug_workflow
 
 jobs:
   msvc:
