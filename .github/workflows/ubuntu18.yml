@@ -1,9 +1,6 @@
 name: Ubuntu 18
 
-on:
-  push:
-    branches-ignore:
-      - debug_workflow
+on: [push]
 
 env:
   # TeamTalk unit test environment variables
@@ -173,3 +170,19 @@ jobs:
       with:
         name: teamtalk-ubuntu18
         path: ${{runner.workspace}}/TeamTalk5/Setup/Portable/teamtalk-*
+
+  release:
+    name: release
+    runs-on: ubuntu-latest
+    needs: [build]
+    steps:
+    - uses: actions/download-artifact@v1
+      with:
+        name: teamtalk-ubuntu18
+    - uses: meeDamian/github-release@2.0
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: ${{ github.ref }}
+        files: ./teamtalk-ubuntu18
+        gzip: folders
+        allow_override: true
