@@ -60,7 +60,7 @@ jobs:
         arch: '${{ matrix.qtarch }}'
         dir: '${{ runner.workspace }}/Qt/'
         install-deps: 'true'
-        cached: 'true'
+        cached: 'false'
         setup-python: 'true'
         tools: 'tools_ifw tools_qtcreator,qt.tools.qtcreator'
         set-env: 'true'
