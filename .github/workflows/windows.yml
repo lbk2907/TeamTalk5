@@ -53,21 +53,6 @@ jobs:
 
     - name: Install Qt
       uses: jurplel/install-qt-action@v2
-      with:
-        version: '5.15.2'
-        host: 'windows'
-        target: 'desktop'
-        arch: '${{ matrix.qtarch }}'
-        dir: '${{ runner.workspace }}/Qt/'
-        install-deps: 'true'
-        cached: 'false'
-        setup-python: 'true'
-        tools: 'tools_ifw tools_qtcreator,qt.tools.qtcreator'
-        set-env: 'true'
-        tools-only: 'false'
-        aqtversion: '==2.0.0'
-        py7zrversion: '==0.16.1'
-        extra: '--external 7z'
 
     - name: Print environment
       shell: cmd
