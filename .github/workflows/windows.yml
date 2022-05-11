@@ -20,7 +20,7 @@ jobs:
             vmimage: windows-2019
             cmakeplatform: Win32
             dotnetarch: x86
-            qtarch: win32_msvc2015
+            qtarch: win32_msvc2019
           - name: VS2019Release64
             vmimage: windows-2019
             cmakeplatform: x64
@@ -53,6 +53,8 @@ jobs:
 
     - name: Install Qt
       uses: jurplel/install-qt-action@v2
+      with:
+        arch: '${{ matrix.qtarch }}'
 
     - name: Print environment
       shell: cmd
