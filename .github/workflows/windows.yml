@@ -20,7 +20,7 @@ jobs:
             vmimage: windows-2019
             cmakeplatform: Win32
             dotnetarch: x86
-            qtarch: win32_msvc2019_64
+            qtarch: win32_msvc2015
           - name: VS2019Release64
             vmimage: windows-2019
             cmakeplatform: x64
