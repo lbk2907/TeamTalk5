@@ -1,9 +1,6 @@
 name: Windows
 
-on:
-  push:
-    branches-ignore:
-      - debug_workflow
+on: [push]
 
 env:
   # TeamTalk unit test environment variables
@@ -23,10 +20,13 @@ jobs:
             vmimage: windows-2019
             cmakeplatform: Win32
             dotnetarch: x86
+            qtarch: win32_msvc2019_64
           - name: VS2019Release64
             vmimage: windows-2019
             cmakeplatform: x64
             dotnetarch: x64
+            qtarch: win64_msvc2019_64
+
     runs-on: ${{ matrix.vmimage }}
     name: ${{ matrix.name }}
     steps:
@@ -50,6 +50,28 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install pytest pytest-cov
+
+    - name: Install Qt
+      uses: jurplel/install-qt-action@v2
+      with:
+        version: '5.15.3'
+        host: 'windows'
+        target: 'desktop'
+        arch: '${{ matrix.qtarch }}'
+        dir: '${{ github.workspace }}/Qt/'
+        install-deps: 'true'
+        cached: 'true'
+        setup-python: 'true'
+        tools: 'tools_ifw tools_qtcreator,qt.tools.qtcreator'
+        set-env: 'true'
+        tools-only: 'false'
+        aqtversion: '==2.0.0'
+        py7zrversion: '==0.16.1'
+        extra: '--external 7z'
+
+    - name: Print environment
+      shell: cmd
+      run: set
 
     - name: Init TeamTalk Client submodules
       working-directory: ${{runner.workspace}}/TeamTalk5
@@ -77,10 +99,6 @@ jobs:
         echo ${{runner.workspace}}\TeamTalk5\Library\TeamTalk_DLL>> %GITHUB_PATH%
         echo ${{runner.workspace}}\TeamTalk5\Library\TeamTalkJNI\libs>> %GITHUB_PATH%
         echo PYTHONPATH=${{runner.workspace}}\TeamTalk5\Library\TeamTalkPy>> %GITHUB_ENV%
-
-    - name: Print environment
-      shell: cmd
-      run: set
 
     - name: Copy Server Configuration
       working-directory: ${{runner.workspace}}/TeamTalk5
