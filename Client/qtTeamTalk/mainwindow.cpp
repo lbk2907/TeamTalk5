@@ -5716,6 +5716,7 @@ void MainWindow::slotUpdateUI()
 
     ui.actionJoinChannel->setEnabled(chanid>0);
     ui.actionViewChannelInfo->setEnabled(chanid>0);
+    ui.actionShareChannel->setEnabled(mychannel > 0);
     ui.actionBannedUsersInChannel->setEnabled(chanid>0);
     ui.actionCreateChannel->setEnabled(chanid>0 || mychannel>0);
     ui.actionUpdateChannel->setEnabled(chanid>0);
